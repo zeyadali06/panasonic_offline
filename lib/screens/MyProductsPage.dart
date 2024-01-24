@@ -1,7 +1,11 @@
 // ignore_for_file: file_names
 
+import 'dart:async';
+import 'package:Panasonic_offline/cubits/EditingProduct/EditingProductCubit.dart';
+import 'package:Panasonic_offline/cubits/EditingProduct/EditingProductStates.dart';
 import 'package:Panasonic_offline/services/HiveServices.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:Panasonic_offline/constants.dart';
 import 'package:Panasonic_offline/main.dart';
@@ -21,98 +25,117 @@ class _MyProductsPageState extends State<MyProductsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ModalProgressHUD(
-      inAsyncCall: isLoading,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          centerTitle: true,
-          title: const Text('My Products', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Provider.of<ProviderVariables>(context, listen: false).product = null;
-                  Navigator.pushNamed(context, 'AddProductPage');
-                },
-                icon: const Icon(Icons.add))
-          ],
-        ),
-        body: Builder(
-          builder: (context) {
-            List<ProductModel> myProducts = [];
-
-            try {
-              myProducts = getData();
-              if (myProducts.isEmpty) {
+    return BlocListener<EditProductCubit, Edit>(
+      listener: (context, state) {
+        if (state is StoringSuccess) {
+          setState(() {});
+        }
+      },
+      child: ModalProgressHUD(
+        inAsyncCall: isLoading,
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+            centerTitle: true,
+            title: const Text('My Products', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Provider.of<ProviderVariables>(context, listen: false).product = null;
+                    Navigator.pushNamed(context, 'AddProductPage');
+                  },
+                  icon: const Icon(Icons.add))
+            ],
+          ),
+          body: StreamBuilder<ProductModelSnapshot>(
+            stream: dataToStream(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
                 return const Center(child: Text('No Devices Found', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)));
-              }
-
-              return ListView(
-                physics: const BouncingScrollPhysics(),
-                children: myProducts.map((element) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: KHorizontalPadding, vertical: 8),
-                    child: Stack(
-                      alignment: AlignmentDirectional.center,
-                      children: [
-                        Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(borderRadius: KRadius),
-                          child: ListTile(
-                            title: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Delete Product ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.white)),
-                                Icon(Icons.delete, color: Colors.white),
-                              ],
-                            ),
-                            tileColor: Colors.red,
-                            shape: RoundedRectangleBorder(side: const BorderSide(width: 0, color: Colors.red), borderRadius: KRadius),
-                          ),
-                        ),
-                        Dismissible(
-                          key: UniqueKey(),
-                          direction: DismissDirection.endToStart,
-                          onDismissed: (direction) async {
-                            isLoading = true;
-                            setState(() {});
-                            await deleteData(element);
-                            isLoading = false;
-                            setState(() {});
-                          },
-                          child: Card(
+              } else {
+                return ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: snapshot.data!.allProducts.map((element) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: KHorizontalPadding, vertical: 8),
+                      child: Stack(
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          Card(
                             elevation: 0,
-                            shape: RoundedRectangleBorder(side: BorderSide(width: 2, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: KRadius),
+                            shape: RoundedRectangleBorder(borderRadius: KRadius),
                             child: ListTile(
-                              onTap: () {
-                                isLoading = true;
-                                setState(() {});
-                                ProductModel ele;
-                                ele.copy(element);
-                                Provider.of<ProviderVariables>(context, listen: false).product = ele;
-                                Navigator.pushNamed(context, 'EditOrDeleteProductPage');
-                                isLoading = false;
-                                setState(() {});
-                              },
-                              shape: RoundedRectangleBorder(side: BorderSide(width: 0, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: KRadius),
-                              tileColor: Theme.of(context).buttonTheme.colorScheme!.background,
-                              leading: Text(element.model, style: const TextStyle(fontSize: 22)),
-                              title: element.price == null ? null : Center(child: Text("${element.price}£E", style: const TextStyle(fontSize: 22))),
-                              trailing: Text(element.used ? 'used' : ''),
+                              title: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Delete Product ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.white)),
+                                  Icon(Icons.delete, color: Colors.white),
+                                ],
+                              ),
+                              tileColor: Colors.red,
+                              shape: RoundedRectangleBorder(side: const BorderSide(width: 0, color: Colors.red), borderRadius: KRadius),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              );
-            } catch (e) {
-              return const Center(child: CircularProgressIndicator());
-            }
-          },
+                          Dismissible(
+                            key: UniqueKey(),
+                            direction: DismissDirection.endToStart,
+                            onDismissed: (direction) async {
+                              isLoading = true;
+                              setState(() {});
+                              await deleteData(element);
+                              isLoading = false;
+                              setState(() {});
+                            },
+                            child: Card(
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(side: BorderSide(width: 2, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: KRadius),
+                              child: ListTile(
+                                onTap: () {
+                                  isLoading = true;
+                                  setState(() {});
+                                  ProductModel ele = ProductModel(model: '', description: '', category: '', used: true);
+                                  ele.copy(element);
+                                  Provider.of<ProviderVariables>(context, listen: false).product = ele;
+                                  Navigator.pushNamed(context, 'EditOrDeleteProductPage');
+                                  isLoading = false;
+                                  setState(() {});
+                                },
+                                shape: RoundedRectangleBorder(side: BorderSide(width: 0, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: KRadius),
+                                tileColor: Theme.of(context).buttonTheme.colorScheme!.background,
+                                leading: Text(element.model, style: const TextStyle(fontSize: 22)),
+                                title: element.price == null ? null : Center(child: Text("${element.price}£E", style: const TextStyle(fontSize: 22))),
+                                trailing: Text(element.used ? 'used' : ''),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                );
+              }
+            },
+          ),
         ),
       ),
     );
+  }
+}
+
+Stream<ProductModelSnapshot> dataToStream() {
+  StreamController<ProductModelSnapshot> controller = StreamController();
+  ProductModelSnapshot products = ProductModelSnapshot();
+  products.allProducts = getData();
+  products.length = products.allProducts.length;
+  controller.add(products);
+  return controller.stream;
+}
+
+class ProductModelSnapshot {
+  late List<ProductModel> allProducts;
+  late int length;
+  ProductModelSnapshot() {
+    allProducts = [];
+    length = 0;
   }
 }

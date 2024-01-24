@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:Panasonic_offline/constants.dart';
 import 'package:Panasonic_offline/models/ProductModel.dart';
 
@@ -93,7 +92,7 @@ Future<ProductModel> getProduct({String? model, String? abbreviation, required S
   );
 }
 
-String data(ProductModel pm) {
+String printData(ProductModel pm) {
   return """
     *************************************************
     model: ${pm.model}\n
