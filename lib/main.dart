@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
           create: (context) => DarkModeCubit(),
         )
       ],
-      child: BlocBuilder<DarkModeCubit, DarkMode>(
+      child: BlocBuilder<DarkModeCubit, Mode>(
         builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,

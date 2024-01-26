@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
-class DarkMode {}
+class Mode {}
 
-class Dark extends DarkMode {}
+class DarkMode extends Mode {}
 
-class White extends DarkMode {}
+class WhiteMode extends Mode {}
