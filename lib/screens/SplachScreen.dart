@@ -1,12 +1,11 @@
 // ignore_for_file: file_names
 
-import 'package:Panasonic_offline/main.dart';
+import 'package:Panasonic_offline/cubits/DarkMode/DarkModeCubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:Panasonic_offline/constants.dart';
-import 'package:hive/hive.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplachScreen extends StatefulWidget {
   const SplachScreen({super.key});
@@ -25,8 +24,7 @@ class _SplachScreenState extends State<SplachScreen> with SingleTickerProviderSt
 
   Future<void> prepareData(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 2));
-    await Hive.openBox<bool>(KIsDarkBox);
-    Provider.of<ProviderVariables>(context, listen: false).dark = Hive.box<bool>(KIsDarkBox).get(KIsDarkBox, defaultValue: false)!;
+    await BlocProvider.of<DarkModeCubit>(context).initMode();
     Navigator.pushReplacementNamed(context, 'HomeNavigationBar');
   }
 

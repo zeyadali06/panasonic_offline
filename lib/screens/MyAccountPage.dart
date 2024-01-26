@@ -1,12 +1,10 @@
 // ignore_for_file: file_names
 
+import 'package:Panasonic_offline/cubits/DarkMode/DarkModeCubit.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:Panasonic_offline/components/helper.dart';
-import 'package:Panasonic_offline/constants.dart';
-import 'package:Panasonic_offline/main.dart';
-import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key, required this.refresh});
@@ -148,15 +146,12 @@ class _SettingsPageState extends State<SettingsPage> {
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
                       child: CustomCheckbox(
                         activeColor: Theme.of(context).checkboxTheme.overlayColor!.resolve({})!,
-                        initialValue: Provider.of<ProviderVariables>(context).dark,
+                        initialValue: BlocProvider.of<DarkModeCubit>(context).isDark,
                         onChanged: (value) async {
                           setState(() {
                             isLoading = true;
                           });
-                          isChecked = value;
-                          Provider.of<ProviderVariables>(context, listen: false).dark = value;
-                          await Hive.box<bool>(KIsDarkBox).put(KIsDarkBox, value);
-
+                          await BlocProvider.of<DarkModeCubit>(context).convert();
                           setState(() {
                             isLoading = false;
                           });
