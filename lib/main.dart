@@ -2,15 +2,12 @@
 import 'package:Panasonic_offline/cubits/DarkMode/DarkModeCubit.dart';
 import 'package:Panasonic_offline/cubits/DarkMode/DarkModeStates.dart';
 import 'package:Panasonic_offline/cubits/EditingProduct/EditingProductCubit.dart';
-import 'package:Panasonic_offline/firebase_options.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:Panasonic_offline/NavigationBar.dart';
 import 'package:Panasonic_offline/constants.dart';
 import 'package:Panasonic_offline/models/ProductModel.dart';
 import 'package:Panasonic_offline/screens/AddProductPage.dart';
 import 'package:Panasonic_offline/screens/EditOrDeleteProductPage.dart';
-import 'package:Panasonic_offline/screens/SearchPage.dart';
 import 'package:Panasonic_offline/screens/SplachScreen.dart';
 import 'package:Panasonic_offline/screens/MyProductsPage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,8 +19,6 @@ void main() async {
   Hive.registerAdapter(ProductModelAdapter());
   await Hive.openBox<ProductModel>(KProductsBox);
 
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     ChangeNotifierProvider(
       create: (context) {
@@ -41,12 +36,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => EditProductCubit(),
-        ),
-        BlocProvider(
-          create: (context) => DarkModeCubit(),
-        )
+        BlocProvider(create: (context) => EditProductCubit()),
+        BlocProvider(create: (context) => DarkModeCubit()),
       ],
       child: BlocBuilder<DarkModeCubit, Mode>(
         builder: (context, state) {
@@ -77,7 +68,6 @@ class MyApp extends StatelessWidget {
             routes: {
               'SplachScreen': (context) => const SplachScreen(),
               'MyProductsPage': (context) => const MyProductsPage(),
-              'SearchPage': (context) => const SearchPage(),
               'AddProductPage': (context) => const AddProductPage(),
               'EditOrDeleteProductPage': (context) => const EditOrDeleteProductPage(),
               'HomeNavigationBar': (context) => const HomeNavigationBar(),

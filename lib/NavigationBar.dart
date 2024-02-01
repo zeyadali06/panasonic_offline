@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:Panasonic_offline/screens/MyAccountPage.dart';
 import 'package:Panasonic_offline/screens/MyProductsPage.dart';
-import 'package:Panasonic_offline/screens/SearchPage.dart';
 
 class HomeNavigationBar extends StatefulWidget {
   const HomeNavigationBar({super.key});
@@ -31,7 +30,6 @@ class _HomeNavigationBarState extends State<HomeNavigationBar> {
 
     pages = <Widget>[
       const MyProductsPage(),
-      const SearchPage(),
       SettingsPage(
         refresh: _refresh,
       ),
@@ -47,7 +45,6 @@ class _HomeNavigationBarState extends State<HomeNavigationBar> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'My Products'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
         ],
         showUnselectedLabels: false,

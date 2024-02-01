@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:Panasonic_offline/cubits/DarkMode/DarkModeCubit.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:Panasonic_offline/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
