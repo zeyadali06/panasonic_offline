@@ -5,11 +5,11 @@ import 'package:Panasonic_offline/models/ProductModel.dart';
 import 'package:hive/hive.dart';
 
 Future<void> addData(ProductModel product) async {
-  await Hive.box<ProductModel>(KProductsBox).add(product);
+  await Hive.box<ProductModel>(kProductsBox).add(product);
 }
 
 List<ProductModel> getData() {
-  return Hive.box<ProductModel>(KProductsBox).values.toList();
+  return Hive.box<ProductModel>(kProductsBox).values.toList();
 }
 
 Future<void> deleteData(ProductModel product) async {

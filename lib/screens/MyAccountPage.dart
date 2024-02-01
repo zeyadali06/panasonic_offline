@@ -31,7 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          title: const Text("My Account", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+          title: const Text("My Account", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

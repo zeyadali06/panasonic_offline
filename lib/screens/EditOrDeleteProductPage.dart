@@ -41,19 +41,25 @@ class _EditOrDeleteProductPageState extends State<EditOrDeleteProductPage> {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: ModalProgressHUD(
           inAsyncCall: isLoading,
-          child: WillPopScope(
-            onWillPop: () async {
-              Provider.of<ProviderVariables>(context, listen: false).product = null;
-              return true;
+          child: PopScope(
+            onPopInvoked: (popInvoked) {
+              if (popInvoked) {
+                Provider.of<ProviderVariables>(context, listen: false).product = null;
+              }
             },
             child: Scaffold(
-              appBar: AppBar(backgroundColor: Theme.of(context).appBarTheme.backgroundColor),
+              appBar: AppBar(
+                backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+                centerTitle: true,
+                title: const Text('Edit Product', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
+                automaticallyImplyLeading: false,
+              ),
               body: ListView(
                 physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.all(KHorizontalPadding),
+                padding: const EdgeInsets.all(kHorizontalPadding),
                 children: [
                   // Device Model
-                  const Text('Device Model', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                  const Text('Device Model', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey)),
                   const SizedBox(height: 5),
                   TFForAddProduct(
                     hintText: product.model,
@@ -62,7 +68,7 @@ class _EditOrDeleteProductPageState extends State<EditOrDeleteProductPage> {
                   const SizedBox(height: 20),
 
                   // Description
-                  const Text('Description', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                  const Text('Description', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey)),
                   const SizedBox(height: 5),
                   TFForAddProduct(
                     hintText: product.description,
@@ -71,7 +77,7 @@ class _EditOrDeleteProductPageState extends State<EditOrDeleteProductPage> {
                   const SizedBox(height: 20),
 
                   // Category
-                  const Text('Category', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                  const Text('Category', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey)),
                   const SizedBox(height: 5),
                   CustomDropdownButton(
                     enabled: false,
@@ -84,7 +90,7 @@ class _EditOrDeleteProductPageState extends State<EditOrDeleteProductPage> {
                   // Used
                   Row(
                     children: [
-                      const Text('Used', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                      const Text('Used', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.grey)),
                       Checkbox(value: product.used, onChanged: (value) {}, activeColor: Theme.of(context).checkboxTheme.overlayColor!.resolve({})!),
                     ],
                   ),
@@ -221,25 +227,3 @@ class _EditOrDeleteProductPageState extends State<EditOrDeleteProductPage> {
     );
   }
 }
-    
-
-
-// Future<void> sendDataToHive(BuildContext context, ProductModel product) async {
-//   try {
-//     for (var element in getData()) {
-//       if (element.used == product.used && element.model == product.model) {
-//         element.copy(product);
-//         await editData(element);
-//         break;
-//       }
-//     }
-// 
-//     // await editData(product);
-// 
-//     showSnackBar(context, 'Product Added Successfully');
-//     // Provider.of<ProviderVariables>(context, listen: false).product = null;
-//     Navigator.pop(context);
-//   } catch (e) {
-//     showSnackBar(context, 'Error, try again');
-//   }
-// }

@@ -54,8 +54,8 @@ class _TFForAddProductState extends State<TFForAddProduct> {
         style: const TextStyle(fontSize: 18),
         minLines: widget.multiLine ? 5 : null,
         decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: KRadius),
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color, width: 2), borderRadius: KRadius),
+          border: OutlineInputBorder(borderRadius: kRadius),
+          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color, width: 2), borderRadius: kRadius),
           hintText: widget.hintText,
           hintStyle: TextStyle(color: color),
           suffixText: widget.suffixText,
@@ -133,7 +133,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool? foucs;
   Color color = Colors.grey;
   final errorColor = Colors.red;
-  final noErrorFoucsColor = KPrimayColor;
+  final noErrorFoucsColor = kPrimayColor;
   final noErrornoFoucsColor = Colors.grey;
   IconData icon = Icons.remove_red_eye_outlined;
   bool? show;
@@ -185,8 +185,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         controller: controller,
         inputFormatters: widget.inputFormatters,
         decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: KRadius),
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color, width: 2), borderRadius: KRadius),
+          border: OutlineInputBorder(borderRadius: kRadius),
+          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color, width: 2), borderRadius: kRadius),
           prefixIcon: widget.prefixIcon != null ? Icon(widget.prefixIcon, color: color) : null,
           label: Text(widget.label, style: TextStyle(color: color)),
           hintText: widget.hintText,
@@ -254,7 +254,7 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
         });
       },
       inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(borderRadius: KRadius),
+        border: OutlineInputBorder(borderRadius: kRadius),
       ),
     );
   }
@@ -290,18 +290,18 @@ class _ChooseAndShowCompatibleDevicesState extends State<ChooseAndShowCompatible
           return Container(
             width: double.infinity,
             height: 200,
-            decoration: BoxDecoration(borderRadius: KRadius, border: Border.all(color: Colors.grey)),
+            decoration: BoxDecoration(borderRadius: kRadius, border: Border.all(color: Colors.grey)),
             child: widget.product.compatibility!.isNotEmpty
                 ? SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(horizontal: KHorizontalPadding),
+                    padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
                     child: Column(
                       children: widget.product.compatibility!.map((e) {
                         return Card(
                           margin: const EdgeInsets.symmetric(vertical: 8),
-                          shape: RoundedRectangleBorder(side: BorderSide(width: 2, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: KRadius),
+                          shape: RoundedRectangleBorder(side: BorderSide(width: 2, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: kRadius),
                           child: ListTile(
-                            shape: RoundedRectangleBorder(side: BorderSide(width: 0, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: KRadius),
+                            shape: RoundedRectangleBorder(side: BorderSide(width: 0, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: kRadius),
                             title: Text(e, style: const TextStyle(fontSize: 22)),
                             tileColor: Theme.of(context).buttonTheme.colorScheme!.background,
                             trailing: IconButton(
@@ -336,7 +336,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      shape: RoundedRectangleBorder(side: BorderSide(color: borderColor, width: 2), borderRadius: KRadius),
+      shape: RoundedRectangleBorder(side: BorderSide(color: borderColor, width: 2), borderRadius: kRadius),
       onPressed: onTap,
       color: color,
       height: 50,
@@ -370,7 +370,7 @@ class GDForSignInMethods extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(vertical: 5),
-        decoration: BoxDecoration(borderRadius: KRadius, color: color),
+        decoration: BoxDecoration(borderRadius: kRadius, color: color),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

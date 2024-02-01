@@ -17,7 +17,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ProductModelAdapter());
-  await Hive.openBox<ProductModel>(KProductsBox);
+  await Hive.openBox<ProductModel>(kProductsBox);
 
   runApp(
     ChangeNotifierProvider(
@@ -58,12 +58,12 @@ class MyApp extends StatelessWidget {
                 : // Light
                 ThemeData(
                     brightness: Brightness.light,
-                    primaryColor: KPrimayColor,
+                    primaryColor: kPrimayColor,
                     textTheme: const TextTheme(bodyLarge: TextStyle(color: Colors.black)),
-                    appBarTheme: const AppBarTheme(backgroundColor: KPrimayColor),
-                    buttonTheme: const ButtonThemeData(colorScheme: ColorScheme.light(scrim: KPrimayColor, background: Colors.white, outline: KPrimayColor)),
-                    bottomNavigationBarTheme: BottomNavigationBarThemeData(backgroundColor: Colors.white, selectedItemColor: KPrimayColor, unselectedItemColor: Colors.grey[800]),
-                    checkboxTheme: CheckboxThemeData(overlayColor: MaterialStateProperty.all(KPrimayColor)),
+                    appBarTheme: const AppBarTheme(backgroundColor: kPrimayColor),
+                    buttonTheme: const ButtonThemeData(colorScheme: ColorScheme.light(scrim: kPrimayColor, background: Colors.white, outline: kPrimayColor)),
+                    bottomNavigationBarTheme: BottomNavigationBarThemeData(backgroundColor: Colors.white, selectedItemColor: kPrimayColor, unselectedItemColor: Colors.grey[800]),
+                    checkboxTheme: CheckboxThemeData(overlayColor: MaterialStateProperty.all(kPrimayColor)),
                   ),
             routes: {
               'SplachScreen': (context) => const SplachScreen(),

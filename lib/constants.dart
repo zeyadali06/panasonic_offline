@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const KPrimayColor = Color(0xff0041c0);
+const kPrimayColor = Color(0xff0041c0);
 const String usersCollection = 'UsersAndTheirDevices';
 const String allProductsCollection = 'AllProducts';
 const String usernameCollection = 'UsernameCollection';
@@ -61,9 +61,9 @@ const Set<String> allCompatibleDevices = {
   'KX-NS500',
   'KX-NS1000',
 };
-double widthOfCustoms(BuildContext context) => MediaQuery.of(context).size.width - KHorizontalPadding * 2;
-const double KHorizontalPadding = 15;
-BorderRadius KRadius = BorderRadius.circular(10);
+double widthOfCustoms(BuildContext context) => MediaQuery.of(context).size.width - kHorizontalPadding * 2;
+const double kHorizontalPadding = 15;
+BorderRadius kRadius = BorderRadius.circular(10);
 const double heightOfCustoms = 55;
 const Map<String, IconData> categoryIcons = {
   'Air Conditioning': Icons.ac_unit,
@@ -103,5 +103,5 @@ const Map<String, IconData> categoryIcons = {
   'Ventilating Fan': Icons.air,
   'Visual Sort Assist': Icons.sort_by_alpha,
 };
-const String KProductsBox = 'ProductModelBox';
-const String KIsDarkBox = 'IsDarkBox';
+const String kProductsBox = 'ProductModelBox';
+const String kIsDarkBox = 'IsDarkBox';

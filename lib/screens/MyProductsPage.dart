@@ -37,33 +37,35 @@ class _MyProductsPageState extends State<MyProductsPage> {
           appBar: AppBar(
             backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
             centerTitle: true,
-            title: const Text('My Products', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            title: const Text('My Products', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
             actions: [
               IconButton(
                   onPressed: () {
                     Provider.of<ProviderVariables>(context, listen: false).product = null;
                     Navigator.pushNamed(context, 'AddProductPage');
                   },
-                  icon: const Icon(Icons.add))
+                  icon: const Icon(Icons.add, color: Colors.white))
             ],
           ),
           body: StreamBuilder<ProductModelSnapshot>(
             stream: dataToStream(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
+                return const Center(child: Text('Loading . . .', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)));
+              } else if (snapshot.data!.length == 0) {
                 return const Center(child: Text('No Devices Found', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)));
               } else {
                 return ListView(
                   physics: const BouncingScrollPhysics(),
                   children: snapshot.data!.allProducts.map((element) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: KHorizontalPadding, vertical: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding, vertical: 8),
                       child: Stack(
                         alignment: AlignmentDirectional.center,
                         children: [
                           Card(
                             elevation: 0,
-                            shape: RoundedRectangleBorder(borderRadius: KRadius),
+                            shape: RoundedRectangleBorder(borderRadius: kRadius),
                             child: ListTile(
                               title: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +75,7 @@ class _MyProductsPageState extends State<MyProductsPage> {
                                 ],
                               ),
                               tileColor: Colors.red,
-                              shape: RoundedRectangleBorder(side: const BorderSide(width: 0, color: Colors.red), borderRadius: KRadius),
+                              shape: RoundedRectangleBorder(side: const BorderSide(width: 0, color: Colors.red), borderRadius: kRadius),
                             ),
                           ),
                           Dismissible(
@@ -88,7 +90,7 @@ class _MyProductsPageState extends State<MyProductsPage> {
                             },
                             child: Card(
                               elevation: 0,
-                              shape: RoundedRectangleBorder(side: BorderSide(width: 2, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: KRadius),
+                              shape: RoundedRectangleBorder(side: BorderSide(width: 2, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: kRadius),
                               child: ListTile(
                                 onTap: () {
                                   isLoading = true;
@@ -100,7 +102,7 @@ class _MyProductsPageState extends State<MyProductsPage> {
                                   isLoading = false;
                                   setState(() {});
                                 },
-                                shape: RoundedRectangleBorder(side: BorderSide(width: 0, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: KRadius),
+                                shape: RoundedRectangleBorder(side: BorderSide(width: 0, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: kRadius),
                                 tileColor: Theme.of(context).buttonTheme.colorScheme!.background,
                                 leading: Text(element.model, style: const TextStyle(fontSize: 22)),
                                 title: element.price == null ? null : Center(child: Text("${element.price}£E", style: const TextStyle(fontSize: 22))),

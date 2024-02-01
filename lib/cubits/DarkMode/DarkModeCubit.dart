@@ -11,14 +11,14 @@ class DarkModeCubit extends Cubit<Mode> {
   DarkModeCubit() : super(Mode());
 
   Future<void> initMode() async {
-    await Hive.openBox<bool>(KIsDarkBox);
-    isDark = Hive.box<bool>(KIsDarkBox).get(KIsDarkBox, defaultValue: false)!;
+    await Hive.openBox<bool>(kIsDarkBox);
+    isDark = Hive.box<bool>(kIsDarkBox).get(kIsDarkBox, defaultValue: false)!;
     isDark ? emit(DarkMode()) : emit(WhiteMode());
   }
 
   Future<void> convert() async {
     isDark = !isDark;
-    await Hive.box<bool>(KIsDarkBox).put(KIsDarkBox, isDark);
+    await Hive.box<bool>(kIsDarkBox).put(kIsDarkBox, isDark);
     isDark ? emit(DarkMode()) : emit(WhiteMode());
   }
 }

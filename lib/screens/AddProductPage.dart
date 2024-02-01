@@ -48,12 +48,17 @@ class _AddProductPageState extends State<AddProductPage> {
       child: ModalProgressHUD(
         inAsyncCall: isLoading,
         child: Scaffold(
-          appBar: AppBar(backgroundColor: Theme.of(context).appBarTheme.backgroundColor),
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+            centerTitle: true,
+            title: const Text('Add Product', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
+            automaticallyImplyLeading: false,
+          ),
           body: Form(
             child: ListView(
               physics: const BouncingScrollPhysics(),
               controller: scrollController,
-              padding: const EdgeInsets.all(KHorizontalPadding),
+              padding: const EdgeInsets.all(kHorizontalPadding),
               children: [
                 // Device Model
                 const LabelWithRedStar(label: 'Device Model'),

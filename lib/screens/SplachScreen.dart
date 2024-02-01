@@ -37,7 +37,7 @@ class _SplachScreenState extends State<SplachScreen> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: KPrimayColor,
+      backgroundColor: kPrimayColor,
       body: Center(
         child: AnimatedTextKit(
           isRepeatingAnimation: false,
