@@ -60,7 +60,7 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 flutter_launcher_icons:
-  image_path: "assets/images/Logo.png"
+  image_path: "assets/images/letter-p.png"
   android: true
   ios: true
   remove_alpha_ios: true
