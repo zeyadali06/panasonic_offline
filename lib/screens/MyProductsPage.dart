@@ -92,10 +92,13 @@ class _MyProductsPageState extends State<MyProductsPage> {
                               elevation: 0,
                               shape: RoundedRectangleBorder(side: BorderSide(width: 2, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: kRadius),
                               child: ListTile(
-                                onTap: () {
+                                onTap: () async {
                                   // Provider.of<ProviderVariables>(context, listen: false).product = ProductModel.init();
                                   Provider.of<ProviderVariables>(context, listen: false).product = element;
-                                  Navigator.pushNamed(context, 'EditOrDeleteProductPage', arguments: element);
+                                  var res = await Navigator.pushNamed(context, 'EditOrDeleteProductPage', arguments: element);
+                                  if (res != null && res == 'poped') {
+                                    setState(() {});
+                                  }
                                 },
                                 shape: RoundedRectangleBorder(side: BorderSide(width: 0, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: kRadius),
                                 tileColor: Theme.of(context).buttonTheme.colorScheme!.background,

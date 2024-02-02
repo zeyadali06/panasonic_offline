@@ -215,7 +215,7 @@ class _EditOrDeleteProductPageState extends State<EditOrDeleteProductPage> {
                       await deleteData(editted);
                       showSnackBar(context, 'Product Deleted Successfully');
                       // Provider.of<ProviderVariables>(context, listen: false).product = null;
-                      Navigator.pop(context);
+                      Navigator.pop(context, 'poped');
                     },
                     widget: textOfCustomButton(text: 'Delete Product'),
                     color: Colors.red,
