@@ -63,6 +63,15 @@ class ProductModel extends HiveObject {
     );
   }
 
+  factory ProductModel.init() {
+    return ProductModel(
+      model: '',
+      description: '',
+      category: '',
+      used: false,
+    );
+  }
+
   void copy(ProductModel product) {
     abbreviation = product.abbreviation;
     category = product.category;

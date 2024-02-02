@@ -93,14 +93,9 @@ class _MyProductsPageState extends State<MyProductsPage> {
                               shape: RoundedRectangleBorder(side: BorderSide(width: 2, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: kRadius),
                               child: ListTile(
                                 onTap: () {
-                                  isLoading = true;
-                                  setState(() {});
-                                  ProductModel ele = ProductModel(model: '', description: '', category: '', used: true);
-                                  ele.copy(element);
-                                  Provider.of<ProviderVariables>(context, listen: false).product = ele;
-                                  Navigator.pushNamed(context, 'EditOrDeleteProductPage');
-                                  isLoading = false;
-                                  setState(() {});
+                                  // Provider.of<ProviderVariables>(context, listen: false).product = ProductModel.init();
+                                  Provider.of<ProviderVariables>(context, listen: false).product = element;
+                                  Navigator.pushNamed(context, 'EditOrDeleteProductPage', arguments: element);
                                 },
                                 shape: RoundedRectangleBorder(side: BorderSide(width: 0, color: Theme.of(context).buttonTheme.colorScheme!.outline), borderRadius: kRadius),
                                 tileColor: Theme.of(context).buttonTheme.colorScheme!.background,

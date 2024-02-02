@@ -26,7 +26,9 @@ class _EditOrDeleteProductPageState extends State<EditOrDeleteProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    ProductModel product = Provider.of<ProviderVariables>(context, listen: false).product!;
+    ProductModel editted = ModalRoute.of(context)!.settings.arguments as ProductModel;
+    ProductModel product = ProductModel.init();
+    product.copy(editted);
 
     return BlocListener<EditProductCubit, Edit>(
       listener: (context, state) async {
@@ -113,7 +115,7 @@ class _EditOrDeleteProductPageState extends State<EditOrDeleteProductPage> {
                     hintText: 'Enter Price',
                     suffixText: 'EGP',
                     inputFormatters: [
-                      LengthLimitingTextInputFormatter(15),
+                      LengthLimitingTextInputFormatter(13),
                       FilteringTextInputFormatter.deny(RegExp(' ')),
                       FilteringTextInputFormatter.allow(RegExp(r"[0-9]*\.?[0-9]*")),
                       TextInputFormatter.withFunction((oldValue, newValue) {
@@ -209,7 +211,8 @@ class _EditOrDeleteProductPageState extends State<EditOrDeleteProductPage> {
                     onTap: () async {
                       isLoading = true;
                       setState(() {});
-                      await deleteData(product);
+                      editted.copy(product);
+                      await deleteData(editted);
                       showSnackBar(context, 'Product Deleted Successfully');
                       // Provider.of<ProviderVariables>(context, listen: false).product = null;
                       Navigator.pop(context);

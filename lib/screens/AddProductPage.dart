@@ -33,9 +33,7 @@ class _AddProductPageState extends State<AddProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    ProductModel product = Provider.of<ProviderVariables>(context, listen: false).product == null
-        ? ProductModel(model: '', description: '', category: '', used: false)
-        : Provider.of<ProviderVariables>(context, listen: false).product!;
+    ProductModel product = Provider.of<ProviderVariables>(context, listen: false).product == null ? ProductModel.init() : Provider.of<ProviderVariables>(context, listen: false).product!;
 
     product.category = 'Air Conditioning';
 
@@ -133,7 +131,7 @@ class _AddProductPageState extends State<AddProductPage> {
                   hintText: 'Enter Price',
                   suffixText: 'EGP',
                   inputFormatters: [
-                    LengthLimitingTextInputFormatter(15),
+                    LengthLimitingTextInputFormatter(13),
                     FilteringTextInputFormatter.deny(RegExp(' ')),
                     FilteringTextInputFormatter.allow(RegExp(r"[0-9]*\.?[0-9]*")),
                     TextInputFormatter.withFunction((oldValue, newValue) {
