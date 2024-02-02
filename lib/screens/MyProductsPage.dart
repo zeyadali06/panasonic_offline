@@ -40,9 +40,12 @@ class _MyProductsPageState extends State<MyProductsPage> {
             title: const Text('My Products', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
             actions: [
               IconButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Provider.of<ProviderVariables>(context, listen: false).product = null;
-                    Navigator.pushNamed(context, 'AddProductPage');
+                    var res = await Navigator.pushNamed(context, 'AddProductPage');
+                    if (res != null && res == 'poped') {
+                      setState(() {});
+                    }
                   },
                   icon: const Icon(Icons.add, color: Colors.white))
             ],

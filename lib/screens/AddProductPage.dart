@@ -273,7 +273,7 @@ Future<void> sendtoHive(BuildContext context, ProductModel product) async {
 
     showSnackBar(context, 'Product Added Successfully');
     Provider.of<ProviderVariables>(context, listen: false).product = null;
-    Navigator.pop(context);
+    Navigator.pop(context, 'poped');
   } catch (e) {
     showSnackBar(context, 'Error, try again');
   }
